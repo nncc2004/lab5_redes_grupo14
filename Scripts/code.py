@@ -12,15 +12,16 @@ def topology():
 	net.setPropagationModel(model="logDistance", exp=3.9)
 
 	# Creacion de las AP's
-	'''
-	Las posiciones como se muetran en el diagrama
-	Los canales los puse asi porque intenta manener al menos 
-	4 canales de distancia con el AP mas cercano para evitar
-	interferencias
-	REvisar README para el detalle
-	'''
-	if True:
-		# ~ info("*** Creando los AP's\n")
+	if True:	
+		'''
+		Las posiciones como se muetran en el diagrama
+		Los canales los puse asi porque intenta manener al menos 
+		4 canales de distancia con el AP mas cercano para evitar
+		interferencias
+		REvisar README para el detalle
+		'''
+		info("*** Creando los AP's\n")
+		
 		ap1 = net.addAccessPoint(
 		'ap1',
 		ssid='ap1-ssid',
@@ -118,25 +119,92 @@ def topology():
 		channel='11',
 		position='-89.10,71.06,0'
 		)
-
-	#Prueba intermedia, borrar despues
-	if True:
-		info("*** Inicializando los nodos\n")
+		
+		aps = [
+			ap1, ap2, ap3, ap4, ap5, ap6, ap7,
+			ap8, ap9, ap10, ap11, ap12, ap13, ap14
+		]
 		c1 = net.addController('c1')
 		net.configureNodes()
-		net.plotGraph(
-		min_x=-150,
-		min_y=-150,
-		max_x=150,
-		max_y=150
-		)
 
+	
+	#Conexion entre AP's
+	if True:
+		info("*** Crando enlaces en anillo interno\n")
+		net.addLink(ap1, ap2)
+		net.addLink(ap2, ap3)
+		net.addLink(ap3, ap4)
+		net.addLink(ap4, ap5)
+		net.addLink(ap5, ap6)
+		net.addLink(ap6, ap7)
+		net.addLink(ap7	, ap1)
+		info("*** Creando enlaces con AP's externos\n")
+		net.addLink(ap1, ap8)
+		net.addLink(ap2, ap9)
+		net.addLink(ap3, ap10)
+		net.addLink(ap4, ap11)
+		net.addLink(ap5, ap12)
+		net.addLink(ap6, ap13)
+		net.addLink(ap7, ap14)
+		
+		
+	#Creacion de las estaciones en sus posiciones iniciales
+	if True:
+		info("*** Creando y posicionando las 5 estaciones\n")
+		
+		#estacion1: solo cobertura por AP8
+		sta1 = net.addStation(
+			'sta1',
+			mac='00:00:00:00:00:01',
+			position='0,150,0'
+		)
+		
+		#estacion2: cuadrante inferior izquierdo, fuera de cobertura
+		sta2 = net.addStation(
+			'sta2',
+			mac='00:00:00:00:00:02',
+			position='-150,-100,0'
+		)
+		#estacion3: cobertura por uno de los AP del anillo itnerior, por el lado derecho de la topologia
+		sta3 = net.addStation(
+			'sta3',
+			mac='00:00:00:00:00:03',
+			position='60,30,0'
+		)
+		#estacion4: En el origen del plano
+		sta4 = net.addStation(
+			'sta4',
+			mac='00:00:00:00:00:04',
+			position='0,0,0'
+		)
+		#estacion5: zona con maximo solapamiento
+		sta5 = net.addStation(
+			'sta5',
+			mac='00:00:00:00:00:05',
+			position='0,-10,0'
+		)
+		
+	if True:
+
+		info("*** Graficando topologia\n")
+		net.plotGraph(
+		min_x=-200,
+		min_y=-200,
+		max_x=200,
+		max_y=200
+		)
+		
 		net.build()
 		c1.start()
 
-		for ap in [ap1, ap2, ap3, ap4, ap5, ap6, ap7,
-		ap8, ap9, ap10, ap11, ap12, ap13, ap14]:
+		for ap in aps:
 			ap.start([c1])
 
 		CLI(net)
 		net.stop()
+
+
+
+if __name__ == '__main__':
+	setLogLevel('info')
+	topology()
