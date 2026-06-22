@@ -177,31 +177,102 @@ def topology():
 			mac='00:00:00:00:00:04',
 			position='0,0,0'
 		)
-		#estacion5: zona con maximo solapamiento
+		#estacion5: cercana a zona con maximo solapamiento
 		sta5 = net.addStation(
 			'sta5',
 			mac='00:00:00:00:00:05',
-			position='0,-10,0'
+			position='-30,0,0'
 		)
 		
+		
+
+
+
+	info("*** Graficando topologia\n")
+	net.plotGraph(
+	min_x=-200,
+	min_y=-200,
+	max_x=200,
+	max_y=200
+	)
+	
+	
+	#Movilizacion de estaciones
 	if True:
+		info("*** Inicializando movilidad de estaciones\n")
+		net.startMobility(time=0)
+		
+		#estacion 2: desde el cuadrante inferior iquierdo hasta el superior derecho donde haya cobertura. (30s)
+		net.mobility(
+			sta2,
+			'start',
+			time=1,
+			position='-150,-100,0'
+			)
+		net.mobility(
+			sta2,
+			'stop',
+			time=31,
+			position='100,100,0'
+			)
+			
+			
+		#estcion 3: linea recta hasta un nodo punta en un cuadrante diferente al del nodo inicialmente elegido (45s)
+		net.mobility(
+			sta3,
+			'start',
+			time=1,
+			position='60,30,0'
+		)
 
-		info("*** Graficando topologia\n")
-		net.plotGraph(
-		min_x=-200,
-		min_y=-200,
-		max_x=200,
-		max_y=200
+		net.mobility(
+			sta3,
+			'stop',
+			time=46,
+			position='-111.14,-25.36,0'
 		)
 		
-		net.build()
-		c1.start()
+		#estacion 4: desde el origen hasta el l[imite de sobertura de un nodo interno a eleccion (ap4) (
+		net.mobility(
+			sta4,
+			'start',
+			time=1,
+			position='0,0,0'
+		)
 
-		for ap in aps:
-			ap.start([c1])
+		net.mobility(
+			sta4,
+			'stop',
+			time=40,
+			position='50,-130,0'
+		)
+		
+		#estacion5: entrar y salir de la zona de solapamiento (70s). 
+		net.mobility(
+			sta5,
+			'start',
+			time=1,
+			position='-30,0,0'
+		)
 
-		CLI(net)
-		net.stop()
+		net.mobility(
+			sta5,
+			'stop',
+			time=71,
+			position='50,0,0'
+		)
+
+		net.stopMobility(time=72)
+	
+
+	net.build()
+	c1.start()
+
+	for ap in aps:
+		ap.start([c1])
+
+	CLI(net)
+	net.stop()
 
 
 
