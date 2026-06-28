@@ -26,98 +26,112 @@ def topology():
 		'ap1',
 		ssid='ap1-ssid',
 		channel='1',
-		position='0,57,0'
+		position='0,57,0',
+		failMode='standalone', stp=True
 		)
 
 		ap2 = net.addAccessPoint(
 		'ap2',
 		ssid='ap2-ssid',
 		channel='6',
-		position='44.55,35.53,0'
+		position='44.55,35.53,0',
+		failMode='standalone', stp=True
 		)
 
 		ap3 = net.addAccessPoint(
 		'ap3',
 		ssid='ap3-ssid',
 		channel='11',
-		position='55.57,-12.68,0'
+		position='55.57,-12.68,0',
+		failMode='standalone', stp=True
 		)
 
 		ap4 = net.addAccessPoint(
 		'ap4',
 		ssid='ap4-ssid',
 		channel='1',
-		position='24.73,-51.36,0'
+		position='24.73,-51.36,0',
+		failMode='standalone', stp=True
 		)
 
 		ap5 = net.addAccessPoint(
 		'ap5',
 		ssid='ap5-ssid',
 		channel='11',
-		position='-24.73,-51.36,0'
+		position='-24.73,-51.36,0',
+		failMode='standalone', stp=True
 		)
 
 		ap6 = net.addAccessPoint(
 		'ap6',
 		ssid='ap6-ssid',
 		channel='1',
-		position='-55.57,-12.68,0'
+		position='-55.57,-12.68,0',
+		failMode='standalone', stp=True
 		)
 
 		ap7 = net.addAccessPoint(
 		'ap7',
 		ssid='ap7-ssid',
 		channel='6',
-		position='-44.55,35.53,0'
+		position='-44.55,35.53,0',
+		failMode='standalone', stp=True
 		)
 
 		ap8 = net.addAccessPoint(
 		'ap8',
 		ssid='ap8-ssid',
 		channel='6',
-		position='0,114,0'
+		position='0,114,0',
+		failMode='standalone', stp=True
 		)
 
 		ap9 = net.addAccessPoint(
 		'ap9',
 		ssid='ap9-ssid',
 		channel='10',
-		position='89.10,71.06,0'
+		position='89.10,71.06,0',
+		failMode='standalone', stp=True
 		)
 
 		ap10 = net.addAccessPoint(
 		'ap10',
 		ssid='ap10-ssid',
 		channel='4',
-		position='111.14,-25.36,0'
+		position='111.14,-25.36,0',
+		failMode='standalone', stp=True
 		)
 
 		ap11 = net.addAccessPoint(
 		'ap11',
 		ssid='ap11-ssid',
 		channel='6',
-		position='49.46,-102.72,0'
+		position='49.46,-102.72,0',
+		failMode='standalone', stp=True
 		)
 
 		ap12 = net.addAccessPoint(
 		'ap12',
 		ssid='ap12-ssid',
 		channel='3',
-		position='-49.46,-102.72,0'
+		position='-49.46,-102.72,0',
+		failMode='standalone', stp=True
 		)
 
 		ap13 = net.addAccessPoint(
 		'ap13',
 		ssid='ap13-ssid',
 		channel='9',
-		position='-111.14,-25.36,0'
+		position='-111.14,-25.36,0',
+		failMode='standalone', stp=True
 		)
 
 		ap14 = net.addAccessPoint(
 		'ap14',
 		ssid='ap14-ssid',
 		channel='11',
-		position='-89.10,71.06,0'
+		position='-89.10,71.06,0',
+		failMode='standalone', stp=True
 		)
 		
 		aps = [
@@ -184,10 +198,8 @@ def topology():
 			position='-30,0,0'
 		)
 		
+	
 		
-
-
-
 	info("*** Graficando topologia\n")
 	net.plotGraph(
 	min_x=-200,
